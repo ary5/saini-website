@@ -189,14 +189,29 @@ body {
     height: 0;
     border-top: 2px solid var(--node-border);
   }
-  /* no nested connectors */
-  .family-tree li > ul,
-  .family-tree li > ul::before,
-  .family-tree li > ul > li::before {
+  /* nested connectors still show for grandchildren */
+  .family-tree li > ul {
     margin-top: 0;
-    display: none;
+    padding-left: 1.5rem;
   }
-  /* full-width links */
+  .family-tree li > ul::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 0;
+    height: calc(100% - 1rem);
+    border-left: 2px solid var(--node-border);
+  }
+  .family-tree li > ul > li::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 1.5rem;
+    height: 0;
+    border-top: 2px solid var(--node-border);
+  }
   .family-tree li a {
     display: inline-block;
     width: auto;
