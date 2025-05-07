@@ -15,8 +15,8 @@
   --shadow-strong: 0 6px 15px rgba(0, 0, 0, 0.1);
   --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
   --font-family: 'Segoe UI', Tahoma, sans-serif;
-  /* Indent for portrait connectors */
-  --indent: 60px;
+  /* Reduced indent for portrait connectors */
+  --indent: 30px;
 }
 
 /* 2. Global Reset */
@@ -150,7 +150,7 @@ body {
   .family-tree li a { min-width: 80px; font-size: 0.8rem; }
 }
 
-/* 6. Basic Mobile (Hide connectors, stack nodes) */
+/* 6. Basic Mobile (Stacked, hide connectors) */
 @media (max-width: 600px) {
   .tree-container,
   .page-header { padding: 1rem; }
@@ -195,7 +195,7 @@ body {
   .family-tree li {
     display: flex;
     align-items: center;
-    margin: 0.5rem 0;
+    margin: 0.25rem 0;
     padding: 0;
     position: relative;
   }
