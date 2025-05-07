@@ -161,3 +161,44 @@ body {
   .family-tree li { margin: 0.8rem 0; padding: 0; }
   .family-tree li a { width: 100%; box-sizing: border-box; }
 }
+
+/* Portrait (vertical) devices get an indented, vertical tree */
+@media only screen and (orientation: portrait) {
+  .tree-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  .family-tree,
+  .family-tree ul {
+    display: block;
+  }
+  .family-tree ul {
+    margin-left: 1.5rem; /* indent each generation */
+  }
+
+  /* Hide connector lines */
+  .family-tree ul::before,
+  .family-tree li::before,
+  .family-tree li > ul::before,
+  .family-tree li > ul > li::before {
+    display: none;
+  }
+
+  /* Stack each node */
+  .family-tree li {
+    display: block;
+    margin: 0.5rem 0;
+    padding: 0;
+  }
+
+  /* Full-width, left-aligned links */
+  .family-tree li a {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
+}
