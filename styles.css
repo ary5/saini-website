@@ -146,74 +146,84 @@ body {
 
 /* Portrait (vertical) devices: keep connectors */
 @media only screen and (orientation: portrait) {
+  :root {
+    /* indent defines connector length = half expected node width */
+    --indent: 60px;
+  }
   .tree-container {
     overflow-x: hidden;
     overflow-y: auto;
     padding: 1rem;
   }
-  /* vertical layout */
+  /* vertical layout with consistent indent */
   .family-tree,
   .family-tree ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: var(--indent);
     position: relative;
   }
-  /* main vertical line */
+  /* main vertical spine is placed at the indent */
   .family-tree ul::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 1.5rem;
+    left: var(--indent);
     width: 0;
     height: 100%;
     border-left: 2px solid var(--node-border);
   }
-  /* nodes stacked */
+  /* each node row stacks and aligns connectors */
   .family-tree li {
     display: flex;
     align-items: center;
     margin: 0.5rem 0;
     padding: 0;
     position: relative;
+    padding-left: 0;
   }
-  /* horizontal connectors */
+  /* horizontal connector from spine to middle of node */
   .family-tree li::before {
     content: '';
     position: absolute;
-    top: 1rem;
+    top: 50%;
     left: 0;
-    width: 1.5rem;
+    width: var(--indent);
     height: 0;
     border-top: 2px solid var(--node-border);
+    transform: translateY(-50%);
   }
-  /* nested connectors still show for grandchildren */
+  /* nested children keep same indent logic */
   .family-tree li > ul {
     margin-top: 0;
-    padding-left: 1.5rem;
+    padding-left: var(--indent);
+    position: relative;
   }
   .family-tree li > ul::before {
     content: '';
     position: absolute;
-    top: 1rem;
+    top: calc(50% + 0.5rem); /* start below parent connector */
     left: 0;
     width: 0;
-    height: calc(100% - 1rem);
+    height: calc(100% - var(--indent));
     border-left: 2px solid var(--node-border);
   }
   .family-tree li > ul > li::before {
     content: '';
     position: absolute;
-    top: 1rem;
+    top: 50%;
     left: 0;
-    width: 1.5rem;
+    width: var(--indent);
     height: 0;
     border-top: 2px solid var(--node-border);
+    transform: translateY(-50%);
   }
+  /* align node boxes flush after horizontal connectors */
   .family-tree li a {
     display: inline-block;
+    margin-left: var(--indent);
     width: auto;
     text-align: left;
     padding: 0.5rem 1rem;
