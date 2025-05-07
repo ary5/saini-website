@@ -1,22 +1,22 @@
+/* styles.css */
+
 :root {
-  /* Warm burgundy & gold theme */
-  --primary-text: #3e2723;
-  --secondary-text: #6d4c41;
-  --accent: #f6b93b;
-  --background-start: #fdf0e5;
-  --background-end: #fbe8cc;
-  --container-bg: #fff5ec;
-  --node-bg: #fffbf7;
-  --node-border: #d64545;
-  --node-hover-bg: #fadbc4;
+  /* Forest Retreat Theme Colors */
+  --primary-text: #2b3a30;
+  --secondary-text: #556b2f;
+  --accent: #a0522d;
+  --background-start: #e8f5e9;
+  --background-end: #c8e6c9;
+  --container-bg: #f1f8e9;
+  --node-bg: #edf7ed;
+  --node-border: #a5d6a7;
+  --node-hover-bg: #c5e1a5;
   --shadow-strong: 0 6px 15px rgba(0, 0, 0, 0.1);
   --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
   --font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -33,13 +33,11 @@ body {
   margin-bottom: 2rem;
   padding: 1rem 0;
 }
-
 .page-header h1 {
   margin: 0;
   font-size: 3rem;
   color: var(--accent);
 }
-
 .page-header p {
   margin: 0.5rem 0 0;
   font-size: 1.2rem;
@@ -64,7 +62,6 @@ body {
   margin: 0;
   position: relative;
 }
-
 .family-tree ul::before {
   content: '';
   position: absolute;
@@ -82,7 +79,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
 .family-tree li::before {
   content: '';
   position: absolute;
@@ -96,7 +92,6 @@ body {
 .family-tree li > ul {
   margin-top: 1.2rem;
 }
-
 .family-tree li > ul::before {
   content: '';
   position: absolute;
@@ -109,7 +104,6 @@ body {
 .family-tree li > ul > li {
   padding-top: 1rem;
 }
-
 .family-tree li > ul > li::before {
   content: '';
   position: absolute;
@@ -134,7 +128,6 @@ body {
   font-size: 0.9rem;
   transition: background 0.3s, transform 0.3s, border-color 0.3s;
 }
-
 .family-tree li a:hover {
   background: var(--node-hover-bg);
   transform: translateY(-4px);
@@ -142,63 +135,71 @@ body {
   box-shadow: var(--shadow-strong);
 }
 
-/* Responsive tweaks */
 @media (max-width: 1024px) {
   .page-header h1 { font-size: 2.5rem; }
   .page-header p  { font-size: 1rem;    }
   .family-tree li a { min-width: 80px; font-size: 0.8rem; }
 }
 
-@media (max-width: 600px) {
-  .tree-container,
-  .page-header { padding: 1rem; }
-  .family-tree,
-  .family-tree ul            { display: block; }
-  .family-tree ul::before,
-  .family-tree li::before,
-  .family-tree li > ul::before,
-  .family-tree li > ul > li::before { display: none; }
-  .family-tree li { margin: 0.8rem 0; padding: 0; }
-  .family-tree li a { width: 100%; box-sizing: border-box; }
-}
-
-/* Portrait (vertical) devices get an indented, vertical tree */
+/* Portrait orientation: vertical, indented tree with connectors */
 @media only screen and (orientation: portrait) {
   .tree-container {
     overflow-x: hidden;
     overflow-y: auto;
     padding: 1rem;
   }
-
   .family-tree,
   .family-tree ul {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0 0 0 1rem;
+    position: relative;
   }
-  .family-tree ul {
-    margin-left: 1.5rem; /* indent each generation */
+  /* Vertical main connector */
+  .family-tree ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    width: 0;
+    height: 100%;
+    border-left: 2px solid var(--node-border);
   }
-
-  /* Hide connector lines */
-  .family-tree ul::before,
-  .family-tree li::before,
-  .family-tree li > ul::before,
-  .family-tree li > ul > li::before {
-    display: none;
-  }
-
-  /* Stack each node */
   .family-tree li {
-    display: block;
+    display: flex;
+    align-items: center;
     margin: 0.5rem 0;
     padding: 0;
+    position: relative;
   }
-
-  /* Full-width, left-aligned links */
+  /* Horizontal link to nodes */
+  .family-tree li::before {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    left: 0;
+    width: 0.5rem;
+    height: 0;
+    border-top: 2px solid var(--node-border);
+  }
+  .family-tree li > ul {
+    margin-top: 0;
+    margin-left: 1rem;
+    padding-left: 0;
+  }
+  .family-tree li > ul::before {
+    /* no nested connector line */
+    display: none;
+  }
+  .family-tree li > ul > li {
+    padding-top: 0;
+  }
   .family-tree li a {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: auto;
     text-align: left;
     padding: 0.5rem 1rem;
-    box-sizing: border-box;
   }
 }
