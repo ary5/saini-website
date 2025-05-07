@@ -158,15 +158,15 @@ body {
     flex-direction: column;
     align-items: flex-start;
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
     position: relative;
   }
-  /* main vertical line */
+  /* main vertical line aligned to first node */
   .family-tree ul::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 1.5rem;
+    left: 1rem;
     width: 0;
     height: 100%;
     border-left: 2px solid var(--node-border);
@@ -179,20 +179,21 @@ body {
     padding: 0;
     position: relative;
   }
-  /* horizontal connectors */
+  /* horizontal connector from line to node */
   .family-tree li::before {
     content: '';
     position: absolute;
     top: 1rem;
     left: 0;
-    width: 1.5rem;
+    width: 1rem;
     height: 0;
     border-top: 2px solid var(--node-border);
   }
-  /* nested connectors still show for grandchildren */
+  /* preserve nested tree connectors */
   .family-tree li > ul {
     margin-top: 0;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
+    position: relative;
   }
   .family-tree li > ul::before {
     content: '';
@@ -208,7 +209,7 @@ body {
     position: absolute;
     top: 1rem;
     left: 0;
-    width: 1.5rem;
+    width: 1rem;
     height: 0;
     border-top: 2px solid var(--node-border);
   }
@@ -218,5 +219,6 @@ body {
     text-align: left;
     padding: 0.5rem 1rem;
     box-sizing: border-box;
+    margin-left: 1rem;
   }
 }
