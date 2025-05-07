@@ -1,5 +1,6 @@
 /* styles.css */
 
+/* 1. Color Variables */
 :root {
   /* Warm burgundy & gold theme */
   --primary-text: #3e2723;
@@ -14,14 +15,18 @@
   --shadow-strong: 0 6px 15px rgba(0, 0, 0, 0.1);
   --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
   --font-family: 'Segoe UI', Tahoma, sans-serif;
+  /* Indent for portrait connectors */
+  --indent: 60px;
 }
 
+/* 2. Global Reset */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* 3. Base Styles */
 body {
   margin: 0;
   padding: 2rem;
@@ -55,6 +60,7 @@ body {
   margin-bottom: 3rem;
 }
 
+/* 4. Horizontal (Desktop) Family Tree */
 .family-tree,
 .family-tree ul {
   display: flex;
@@ -137,23 +143,105 @@ body {
   box-shadow: var(--shadow-strong);
 }
 
-/* Responsive tweaks */
+/* 5. Tablet Adjustments */
 @media (max-width: 1024px) {
   .page-header h1 { font-size: 2.5rem; }
   .page-header p  { font-size: 1rem;    }
   .family-tree li a { min-width: 80px; font-size: 0.8rem; }
 }
 
-/* Portrait (vertical) devices: reverted to original flex layout */
+/* 6. Basic Mobile (Hide connectors, stack nodes) */
 @media (max-width: 600px) {
   .tree-container,
   .page-header { padding: 1rem; }
+
   .family-tree,
   .family-tree ul            { display: block; }
   .family-tree ul::before,
   .family-tree li::before,
   .family-tree li > ul::before,
   .family-tree li > ul > li::before { display: none; }
+
   .family-tree li { margin: 0.8rem 0; padding: 0; }
   .family-tree li a { width: 100%; box-sizing: border-box; }
+}
+
+/* 7. Portrait-Mode Mobile with Connectors */
+@media only screen and (orientation: portrait) {
+  .tree-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  /* vertical spine */
+  .family-tree,
+  .family-tree ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    padding-left: var(--indent);
+    position: relative;
+  }
+  .family-tree ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc(var(--indent) / 2);
+    bottom: 0;
+    border-left: 2px solid var(--node-border);
+  }
+  /* each node row */
+  .family-tree li {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    padding: 0;
+    position: relative;
+  }
+  /* horizontal arm to node */
+  .family-tree li::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--indent);
+    height: 0;
+    border-top: 2px solid var(--node-border);
+    transform: translateY(-50%);
+  }
+  /* nested children spine + arms */
+  .family-tree li > ul {
+    margin-top: 0;
+    padding-left: var(--indent);
+    position: relative;
+  }
+  .family-tree li > ul::before {
+    content: '';
+    position: absolute;
+    top: calc(50% + 0.5rem);
+    left: 0;
+    width: 0;
+    height: calc(100% - var(--indent) - 0.5rem);
+    border-left: 2px solid var(--node-border);
+  }
+  .family-tree li > ul > li::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--indent);
+    height: 0;
+    border-top: 2px solid var(--node-border);
+    transform: translateY(-50%);
+  }
+  /* node boxes */
+  .family-tree li a {
+    display: inline-block;
+    margin-left: var(--indent);
+    width: auto;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
 }
